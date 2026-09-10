@@ -34,12 +34,25 @@ public class ChomperController : MonoBehaviour
 
     public static event Action<ChomperController, GameObject> OnPickup;
 
+    public static event Action<ChomperController> OnGameStarted;
+
     [SerializeField] private int lives = 3;
 
     [SerializeField] private float deathCooldown = 0.2f;
     private float deathTime;
 
     private Vector3 startingPos;
+
+    private Vector3 _position;
+    public Vector3 Position
+    {
+        get => _position;
+        private set
+        {
+            if (value == null) throw new Exception();
+            _position = value;
+        }
+    }
 
     private void OnEnable()
     {
@@ -60,13 +73,17 @@ public class ChomperController : MonoBehaviour
         charController = GetComponent<CharacterController>();
         hasPowerup = false;
         startingPos = transform.position;
+        Position = transform.position;
         deathTime = Time.time;
         ChangeLives(0);
+        OnGameStarted?.Invoke(this);
     }
 
     private void Update()
     {
-        Vector3 movePos = new Vector3(transform.position.x + moveInput.x, 0f, transform.position.z + moveInput.y);
+        Position = transform.position;
+
+        Vector3 movePos = new Vector3(Position.x + moveInput.x, startingPos.y, Position.z + moveInput.y);
         if (moving && Time.time >= deathTime + deathCooldown)
         {
             if (sprinting)
