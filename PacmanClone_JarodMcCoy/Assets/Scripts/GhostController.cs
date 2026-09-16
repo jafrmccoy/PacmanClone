@@ -85,7 +85,7 @@ public class GhostController : MonoBehaviour
             default:
             case GhostState.Chase:
                 //follow chomper
-                navmeshAgent.SetDestination(chomper.transform.position);
+                navmeshAgent.SetDestination(chomper.Position);
                 break;
             case GhostState.Freeze:
                 //freeze
