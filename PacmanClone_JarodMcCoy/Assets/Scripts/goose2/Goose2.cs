@@ -94,7 +94,7 @@ public class Goose2 : MonoBehaviour
 
     private void RollDeath()
     {
-        int roll = Random.Range(1, chanceToDie);
+        int roll = Random.Range(1, chanceToDie + 1);
         if (roll == chanceToDie)
         {
             Die();

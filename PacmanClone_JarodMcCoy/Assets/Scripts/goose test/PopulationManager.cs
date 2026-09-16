@@ -21,6 +21,11 @@ public class PopulationManager : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI popCountText;
 
+    private void Start()
+    {
+        StartCoroutine(GooseSpawner());
+    }
+
     private void Update()
     {
         population = geese.Count;
@@ -32,7 +37,7 @@ public class PopulationManager : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(birthRate);
+            yield return new WaitForSeconds(birthRate / geese.Count);
 
             SpawnGoose();
         }
@@ -67,5 +72,9 @@ public class PopulationManager : MonoBehaviour
                 posY = -1f * spawnY;
                 break;
         }
+
+        spawnPos = new Vector2(posX, posY);
+
+        Object.Instantiate(goose, spawnPos, Quaternion.identity);
     }
 }

@@ -7,7 +7,7 @@ public class NameBank : MonoBehaviour
 
     public static NameBank nameBank;
 
-    private void Start()
+    private void OnEnable()
     {
         nameBank = this;
     }
